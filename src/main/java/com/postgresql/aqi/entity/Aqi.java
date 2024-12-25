@@ -72,6 +72,8 @@ public class Aqi {
     @Column(name = "version")
     private Long version;
 
+
+
     // Getters and Setters
     public Long getAqiId() {
         return aqiId;
