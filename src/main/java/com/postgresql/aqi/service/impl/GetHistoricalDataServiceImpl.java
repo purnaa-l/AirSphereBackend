@@ -11,9 +11,9 @@ import java.util.Optional;
 
 @Service
 public class GetHistoricalDataServiceImpl implements GetHistoricalDataService {
+
     private final GetHistoricalDataRepository historicalDataRepository;
 
-    // Constructor-based dependency injection
     @Autowired
     public GetHistoricalDataServiceImpl(GetHistoricalDataRepository historicalDataRepository) {
         this.historicalDataRepository = historicalDataRepository;
@@ -27,5 +27,10 @@ public class GetHistoricalDataServiceImpl implements GetHistoricalDataService {
     @Override
     public Optional<HistoricalDataEntity> getHistoricalDataById(Integer id) {
         return historicalDataRepository.findById(id); // Fetch data by ID
+    }
+
+    @Override
+    public List<HistoricalDataEntity> getHistoricalDataByCity(String city) {
+        return historicalDataRepository.findByCityOrderByDateDesc(city); // Fetch data by city
     }
 }

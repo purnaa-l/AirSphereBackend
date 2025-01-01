@@ -2,44 +2,29 @@ package com.postgresql.aqi.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "airquality")
 public class HistoricalDataEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generate the 'sl_no' field if it's the primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer slNo;
 
     private String city;
-
     private Double no2;
-
     private Double so2;
-
     private Double ozone;
-
     private Double co;
-
     private Double aqi;
-
     private String verdict;
 
-    // Default constructor
-    public HistoricalDataEntity() {}
-
-    // Constructor with parameters
-    public HistoricalDataEntity(Integer slNo, String city, Double no2, Double so2, Double ozone, Double co, Double aqi, String verdict) {
-        this.slNo = slNo;
-        this.city = city;
-        this.no2 = no2;
-        this.so2 = so2;
-        this.ozone = ozone;
-        this.co = co;
-        this.aqi = aqi;
-        this.verdict = verdict;
-    }
+    @Temporal(TemporalType.TIMESTAMP)  // This maps the 'date' field to a TIMESTAMP column in the database
+    private Date date;  // Add the 'date' field for ordering by date
 
     // Getters and setters
+
     public Integer getSlNo() {
         return slNo;
     }
@@ -104,17 +89,11 @@ public class HistoricalDataEntity {
         this.verdict = verdict;
     }
 
-    @Override
-    public String toString() {
-        return "aqiHistorical{" +
-                "slNo=" + slNo +
-                ", city='" + city + '\'' +
-                ", no2=" + no2 +
-                ", so2=" + so2 +
-                ", ozone=" + ozone +
-                ", co=" + co +
-                ", aqi=" + aqi +
-                ", verdict='" + verdict + '\'' +
-                '}';
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

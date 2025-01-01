@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true") // specify your frontend URL here
 @RestController
 @RequestMapping("/api/historical-data") // Base URL for the endpoint
@@ -31,5 +30,11 @@ public class GetHistoricalDataController {
     @GetMapping("/{id}")
     public Optional<HistoricalDataEntity> getHistoricalDataById(@PathVariable Integer id) {
         return getHistoricalDataService.getHistoricalDataById(id);
+    }
+
+    // Get historical data by city
+    @GetMapping("/city")
+    public List<HistoricalDataEntity> getHistoricalDataByCity(@RequestParam String city) {
+        return getHistoricalDataService.getHistoricalDataByCity(city);
     }
 }
