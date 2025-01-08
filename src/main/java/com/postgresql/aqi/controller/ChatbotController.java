@@ -16,7 +16,7 @@ public class ChatbotController {
 
     @Autowired
     private ChatbotQueryService chatbotQueryService;
-
+    @CrossOrigin(origins = "http://localhost:5173") // Allow requests from frontend
     @PostMapping("/query")
     public String getChatResponse(@RequestBody Map<String, String> payload) {
         String userMessage = payload.get("message");  // Extract message from the payload

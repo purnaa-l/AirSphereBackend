@@ -24,6 +24,7 @@ public class CitiesAddedController {
         return ResponseEntity.ok(savedCity);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173") // Allow requests from frontend
     @GetMapping
     public ResponseEntity<List<CitiesAdded>> getAllCities(){
         List<CitiesAdded> citiesAddedList=citiesAddedService.getAllCities();
