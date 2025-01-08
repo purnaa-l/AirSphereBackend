@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.mail.MessagingException;  // Correct import
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/aqi/contact-us")
 public class ContactUsController {

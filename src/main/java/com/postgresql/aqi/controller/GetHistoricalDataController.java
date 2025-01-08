@@ -2,7 +2,11 @@ package com.postgresql.aqi.controller;
 
 import com.postgresql.aqi.entity.HistoricalDataEntity;
 import com.postgresql.aqi.service.GetHistoricalDataService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +35,18 @@ public class GetHistoricalDataController {
     public Optional<HistoricalDataEntity> getHistoricalDataById(@PathVariable Integer id) {
         return getHistoricalDataService.getHistoricalDataById(id);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<HistoricalDataEntity> updateData(@PathVariable Integer id, @RequestBody HistoricalDataEntity historicalDataEntity) {
+        if (!getHistoricalDataService.getHistoricalDataById(id).isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        historicalDataEntity.setSlNo(id); // Ensure ID matches the path variable
+        HistoricalDataEntity updatedEntity = getHistoricalDataService.saveData(historicalDataEntity);
+        return ResponseEntity.ok(updatedEntity);
+    }
+
+
+
 
     // Get historical data by city
     @GetMapping("/city")
