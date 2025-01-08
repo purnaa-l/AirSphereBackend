@@ -35,15 +35,20 @@ public class GetHistoricalDataController {
     public Optional<HistoricalDataEntity> getHistoricalDataById(@PathVariable Integer id) {
         return getHistoricalDataService.getHistoricalDataById(id);
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<HistoricalDataEntity> updateData(@PathVariable Integer id, @RequestBody HistoricalDataEntity historicalDataEntity) {
-        if (!getHistoricalDataService.getHistoricalDataById(id).isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    @PostMapping
+    public ResponseEntity<HistoricalDataEntity> insertOrUpdateData(@RequestBody HistoricalDataEntity historicalDataEntity) {
+        // Handle insert or update based on slNo existence
+        if (historicalDataEntity.getSlNo() != null && getHistoricalDataService.getHistoricalDataById(historicalDataEntity.getSlNo()).isPresent()) {
+            HistoricalDataEntity updatedEntity = getHistoricalDataService.saveData(historicalDataEntity);
+            return ResponseEntity.ok(updatedEntity); // Return 200 OK with updated data
+        } else {
+            // Remove slNo from the entity if it's null for new data
+            historicalDataEntity.setSlNo(null); // To avoid setting a null value for slNo
+            HistoricalDataEntity newEntity = getHistoricalDataService.saveData(historicalDataEntity);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newEntity); // Return 201 Created with new data
         }
-        historicalDataEntity.setSlNo(id); // Ensure ID matches the path variable
-        HistoricalDataEntity updatedEntity = getHistoricalDataService.saveData(historicalDataEntity);
-        return ResponseEntity.ok(updatedEntity);
     }
+
 
 
 
