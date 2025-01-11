@@ -1,26 +1,8 @@
-//package com.postgresql.aqi.service.impl;
-//
-//import com.postgresql.aqi.entity.ApiLog;
-//import com.postgresql.aqi.repository.ApiLogRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//import java.time.LocalDateTime;
-//
-//@Service
-//public class ApiLogService {
-//
-//    @Autowired
-//    private ApiLogRepository apiLogRepository;
-//
-//
-//}
 package com.postgresql.aqi.service.impl;
-
 import com.postgresql.aqi.entity.ApiLog;
 import com.postgresql.aqi.repository.ApiLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
